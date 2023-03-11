@@ -1,12 +1,10 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import css from './Searchbar.module.css';
 import { AiOutlineSearch } from '@react-icons/all-files/ai/AiOutlineSearch';
 
 export const Searchbar = ({ onSubmit }) => {
   const [value, setValue] = useState('');
-  // state = {
-  //   value: '',
-  // };
 
   return (
     <header className={css.searchbar}>
@@ -15,7 +13,6 @@ export const Searchbar = ({ onSubmit }) => {
           e.preventDefault();
           onSubmit(value.trim());
           setValue('');
-          // this.setState({ value: '' });
         }}
         className={css.SearchForm}
       >
@@ -32,10 +29,13 @@ export const Searchbar = ({ onSubmit }) => {
           value={value}
           onChange={e => {
             setValue(e.currentTarget.value);
-            // this.setState({ value: e.currentTarget.value });
           }}
         />
       </form>
     </header>
   );
+};
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
