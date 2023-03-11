@@ -1,4 +1,3 @@
-// import { Component } from 'react';
 import { useState, useEffect } from 'react';
 import { getImages } from 'Service/service';
 import { Button } from './Button/Button';
@@ -14,22 +13,11 @@ export const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  // const [total, setTotal] = useState(1);
   const [isVisibleBtn, setIsVisibleBtn] = useState(false);
   const [empty, setEmpty] = useState(false);
   const [largeImageURL, setLargeImageURL] = useState(null);
   const [alt, setAlt] = useState(null);
-  // state = {
-  //   search: '',
-  //   images: [],
-  //   page: 1,
-  //   loading: false,
-  //   error: null,
-  //   showModal: false,
-  //   total: 1,
-  //   isVisibleBtn: false,
-  //   empty: false,
-  // };
+
   const onSubmit = text => {
     setSearch(text);
     setImages([]);
@@ -38,15 +26,6 @@ export const App = () => {
     setError(null);
     setShowModal(false);
     setIsVisibleBtn(false);
-    // this.setState({
-    //   search: text,
-    //   images: [],
-    //   page: 1,
-    //   loading: false,
-    //   error: null,
-    //   toggleModal: false,
-    //   isVisibleBtn: false,
-    // });
   };
   useEffect(() => {
     if (!search) {
@@ -55,19 +34,8 @@ export const App = () => {
     getPhotos(search, page);
   }, [page, search]);
 
-  // componentDidUpdate(_, prevState) {
-  //   if (
-  //     prevState.search !== this.state.search ||
-  //     prevState.page !== this.state.page
-  //   ) {
-  //     this.getPhotos(this.state.search, this.state.page);
-  //   }
-  // }
   const onLoadMore = () => {
     setPage(prevPage => prevPage + 1);
-    // this.setState(prevState => {
-    //   return { page: prevState.page + 1 };
-    // });
   };
 
   const getPhotos = async (search, page) => {
@@ -80,48 +48,22 @@ export const App = () => {
         setEmpty(true);
       }
       setImages(prevState => [...prevState, ...hits]);
-      // setTotal(totalHits);
       setIsVisibleBtn(page < Math.ceil(totalHits / 12));
-      // setState(prevState => ({
-      //   images: [...prevState.images, ...hits],
-      //   total: totalHits,
-      //   isVisibleBtn: page < Math.ceil(totalHits / 12),
-      // }));
     } catch (error) {
       console.dir(error);
       setError(error);
-      // setState({ error: error });
     } finally {
       setLoading(false);
-      // setState({ loading: false });
     }
   };
   const openModal = (largeImageURL, alt) => {
     setShowModal(prevShowModal => !prevShowModal);
     setAlt(alt);
     setLargeImageURL(largeImageURL);
-
-    // this.setState(({ showModal }) => {
-    //   return { showModal: !showModal, largeImageURL, alt };
-    // });
   };
-
-  // const handleSubmit = search => {
-  //   this.setState({
-  //     search,
-  //     images: [],
-  //     page: 1,
-  //     total: 1,
-  //     loading: false,
-  //     error: null,
-  //   });
-  // };
 
   const closeModal = () => {
     setShowModal(prevShowModal => !prevShowModal);
-    // this.setState(({ showModal }) => {
-    //   return { showModal: !showModal };
-    // });
   };
 
   return (

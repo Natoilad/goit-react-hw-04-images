@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 export const Modal = ({ closeModal, children }) => {
   useEffect(() => {
@@ -23,4 +24,8 @@ export const Modal = ({ closeModal, children }) => {
       <div className="Modal">{children}</div>
     </div>
   );
+};
+
+Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };
