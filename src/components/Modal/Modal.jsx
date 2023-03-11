@@ -1,31 +1,26 @@
-import { Component } from 'react';
+import { useEffect } from 'react';
 
-export class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.escapeKey);
-  }
-  escapeKey = evt => {
-    if (evt.code === 'Escape') {
-      console.log('press esc');
-      this.props.closeModal();
-    }
-  };
-
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.escapeKey);
-  }
-
-  backDropClick = evt => {
+export const Modal = ({ closeModal, children }) => {
+  useEffect(() => {
+    const escapeKey = evt => {
+      if (evt.code === 'Escape') {
+        console.log('press esc');
+        closeModal();
+      }
+    };
+    window.addEventListener('keydown', escapeKey);
+    return () => {
+      window.removeEventListener('keydown', escapeKey);
+    };
+  }, [closeModal]);
+  const backDropClick = evt => {
     if (evt.currentTarget === evt.target) {
-      this.props.closeModal();
+      closeModal();
     }
   };
-
-  render() {
-    return (
-      <div onClick={this.backDropClick} className="Overlay">
-        <div className="Modal">{this.props.children}</div>
-      </div>
-    );
-  }
-}
+  return (
+    <div onClick={backDropClick} className="Overlay">
+      <div className="Modal">{children}</div>
+    </div>
+  );
+};
